@@ -22,11 +22,41 @@ body {
     text-align: center;
     max-width: 500px;
     width: 100%;
+    position: relative;
+}
+
+/* 标题容器和信息按钮 */
+.title-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    position: relative;
 }
 
 h1 {
-    margin-bottom: 20px;
     color: #4CAF50;
+    margin: 0;
+}
+
+#info-btn {
+    background: none;
+    border: none;
+    color: #4CAF50;
+    font-size: 24px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: color 0.3s, transform 0.2s;
+    outline: none;
+}
+
+#info-btn:hover {
+    color: #45a049;
+    transform: scale(1.1);
+}
+
+#info-btn:active {
+    transform: scale(0.95);
 }
 
 .game-info {
@@ -37,21 +67,42 @@ h1 {
     flex-wrap: wrap;
 }
 
-.score {
+.score, .lives {
     font-size: 1.2rem;
     font-weight: bold;
     margin: 5px 0;
 }
 
-.difficulty-container {
+.lives {
+    color: #FF5722;
+}
+
+.difficulty-container, .mode-container {
     display: flex;
     align-items: center;
     margin: 5px 0;
 }
 
-.difficulty-container label {
+.difficulty-container label, .mode-container label {
     margin-right: 5px;
     font-weight: bold;
+}
+
+.mode-options {
+    display: flex;
+    align-items: center;
+}
+
+.mode-options label {
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: normal;
+}
+
+.mode-options input {
+    margin-right: 4px;
 }
 
 #difficulty {
@@ -97,6 +148,108 @@ h1 {
     color: #666;
 }
 
+.revival-instruction {
+    color: #FF5722;
+    font-weight: bold;
+}
+
+/* 游戏信息弹窗 */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-in-out;
+    overflow-y: auto;
+}
+
+.modal-content {
+    position: relative;
+    background-color: white;
+    width: 90%;
+    max-width: 600px;
+    margin: 50px auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.3s ease-in-out;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 10px 10px 0 0;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.close-btn {
+    font-size: 28px;
+    font-weight: bold;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.close-btn:hover {
+    transform: scale(1.1);
+}
+
+.modal-body {
+    padding: 20px;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.info-section {
+    margin-bottom: 20px;
+}
+
+.info-section h3 {
+    margin-bottom: 10px;
+    color: #4CAF50;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+.info-section ul {
+    list-style-position: inside;
+    margin-left: 5px;
+}
+
+.info-section li {
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.info-section p {
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
 /* 游戏结束提示 */
 .game-over {
     position: absolute;
@@ -111,10 +264,37 @@ h1 {
     display: none;
 }
 
+/* 游戏暂停提示 */
+.pause-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(76, 175, 80, 0.9);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    display: none;
+    z-index: 100;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.pause-message h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+
+.pause-message p {
+    margin-bottom: 0;
+    font-size: 16px;
+}
+
 /* 移动端方向控制按钮 */
 .mobile-controls {
     margin: 20px auto 0;
-    width: 180px;
+    width: 200px;
     display: none; /* 默认隐藏，仅在移动设备上显示 */
 }
 
@@ -122,6 +302,7 @@ h1 {
     display: flex;
     justify-content: center;
     margin: 5px 0;
+    gap: 10px;
 }
 
 .control-btn {
@@ -131,7 +312,7 @@ h1 {
     color: white;
     border: none;
     border-radius: 50%;
-    margin: 0 5px;
+    margin: 0;
     font-size: 22px;
     display: flex;
     justify-content: center;
@@ -144,9 +325,57 @@ h1 {
     outline: none; /* 移除点击轮廓 */
 }
 
+#btn-pause {
+    background-color: #FF9800; /* 不同颜色以区分暂停按钮 */
+}
+
+#btn-pause.playing {
+    background-color: #4CAF50; /* 继续游戏状态的颜色 */
+}
+
 .control-btn:active {
     background-color: #3e8e41;
     transform: scale(0.95);
+}
+
+#btn-pause:active {
+    background-color: #e68900;
+}
+
+/* 生命值视觉效果 */
+@keyframes lifeChanged {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
+.life-change {
+    animation: lifeChanged 0.5s ease;
+}
+
+/* 复活提示消息 */
+.revive-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 87, 34, 0.9);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-align: center;
+    animation: fadeInOut 2s ease-in-out;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+    20% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
 }
 
 /* 响应式调整 */
@@ -166,7 +395,7 @@ h1 {
         align-items: center;
     }
 
-    .difficulty-container {
+    .difficulty-container, .mode-container {
         margin: 10px 0;
     }
 
@@ -176,7 +405,7 @@ h1 {
     }
     
     /* 调整移动设备上的游戏说明 */
-    .game-instructions p {
+    .game-instructions p:first-child {
         display: none;
     }
     
@@ -184,5 +413,19 @@ h1 {
         content: "使用下方按钮控制蛇的移动方向";
         font-size: 0.9rem;
         color: #666;
+    }
+    
+    /* 弹窗在移动设备上的调整 */
+    .modal-content {
+        width: 95%;
+        margin: 30px auto;
+    }
+    
+    .modal-header h2 {
+        font-size: 1.3rem;
+    }
+    
+    .info-section h3 {
+        font-size: 1.1rem;
     }
 } 

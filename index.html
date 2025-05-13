@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,11 +8,20 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
+
 <body>
     <div class="game-container">
-        <h1>贪吃蛇游戏</h1>
+        <div class="title-container">
+            <h1>贪吃蛇游戏</h1>
+            <button id="info-btn" aria-label="游戏信息" title="游戏信息与玩法">
+                <i class="fas fa-info-circle"></i>
+            </button>
+        </div>
         <div class="game-info">
             <div class="score">分数: <span id="score">0</span></div>
+            <div class="lives" id="lives-container" style="display: none;">
+                生命值: <span id="lives-count">1</span>
+            </div>
             <div class="difficulty-container">
                 <label for="difficulty">难度:</label>
                 <select id="difficulty">
@@ -20,28 +30,84 @@
                     <option value="hard">困难</option>
                 </select>
             </div>
+            <div class="mode-container">
+                <label>模式:</label>
+                <div class="mode-options">
+                    <label>
+                        <input type="radio" name="game-mode" value="normal" checked> 普通
+                    </label>
+                    <label>
+                        <input type="radio" name="game-mode" value="revival"> 复活
+                    </label>
+                </div>
+            </div>
             <button id="start-btn">开始游戏</button>
         </div>
         <canvas id="game-canvas" width="400" height="400"></canvas>
-        
+
         <!-- 移动端方向控制按钮 -->
         <div class="mobile-controls">
             <div class="control-row">
-                <button class="control-btn" id="btn-up" aria-label="向上" role="button" tabindex="0"><i class="fas fa-chevron-up"></i></button>
+                <button class="control-btn" id="btn-up" aria-label="向上" role="button" tabindex="0"><i
+                        class="fas fa-chevron-up"></i></button>
             </div>
             <div class="control-row">
-                <button class="control-btn" id="btn-left" aria-label="向左" role="button" tabindex="0"><i class="fas fa-chevron-left"></i></button>
-                <button class="control-btn" id="btn-right" aria-label="向右" role="button" tabindex="0"><i class="fas fa-chevron-right"></i></button>
+                <button class="control-btn" id="btn-left" aria-label="向左" role="button" tabindex="0"><i
+                        class="fas fa-chevron-left"></i></button>
+                <button class="control-btn" id="btn-pause" aria-label="暂停/继续" role="button" tabindex="0"><i
+                        class="fas fa-pause"></i></button>
+                <button class="control-btn" id="btn-right" aria-label="向右" role="button" tabindex="0"><i
+                        class="fas fa-chevron-right"></i></button>
             </div>
             <div class="control-row">
-                <button class="control-btn" id="btn-down" aria-label="向下" role="button" tabindex="0"><i class="fas fa-chevron-down"></i></button>
+                <button class="control-btn" id="btn-down" aria-label="向下" role="button" tabindex="0"><i
+                        class="fas fa-chevron-down"></i></button>
             </div>
         </div>
-        
+
         <div class="game-instructions">
             <p>使用键盘方向键 ↑ ↓ ← → 控制蛇的移动</p>
+            <p class="revival-instruction" style="display: none;">复活模式: 初始1条命，每得100分增加1条命</p>
         </div>
     </div>
+
+    <!-- 游戏信息弹窗 -->
+    <div id="info-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>贪吃蛇游戏 - 信息</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="info-section">
+                    <h3>游戏玩法</h3>
+                    <ul>
+                        <li>使用键盘方向键或移动设备上的控制按钮控制蛇的移动</li>
+                        <li>吃到食物可以增加分数和蛇的长度</li>
+                        <li>避免撞墙或撞到自己的身体</li>
+                        <li>按空格键可以暂停/继续游戏</li>
+                        <li><strong>普通模式</strong>: 撞墙或自撞后游戏结束</li>
+                        <li><strong>复活模式</strong>: 初始1条命，每吃10个食物(100分)增加1条命，死亡后随机在一边复活</li>
+                    </ul>
+                </div>
+                <div class="info-section">
+                    <h3>难度设置</h3>
+                    <ul>
+                        <li><strong>简单</strong>: 蛇的移动速度较慢</li>
+                        <li><strong>中等</strong>: 蛇的移动速度适中</li>
+                        <li><strong>困难</strong>: 蛇的移动速度较快</li>
+                    </ul>
+                </div>
+                <div class="info-section">
+                    <h3>版权信息</h3>
+                    <p>© 2025 颜陌. 保留所有权利。</p>
+                    <p>本游戏使用HTML5 Canvas技术开发，仅供娱乐和学习使用。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
-</html> 
+
+</html>

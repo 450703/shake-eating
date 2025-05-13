@@ -125,20 +125,23 @@ h1 {
 }
 
 .control-btn {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     background-color: #4CAF50;
     color: white;
     border: none;
     border-radius: 50%;
     margin: 0 5px;
-    font-size: 18px;
+    font-size: 22px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     transition: background-color 0.2s, transform 0.1s;
     -webkit-tap-highlight-color: transparent; /* 移除移动端点击高亮 */
+    user-select: none; /* 防止文本选择 */
+    touch-action: manipulation; /* 优化触摸操作 */
+    outline: none; /* 移除点击轮廓 */
 }
 
 .control-btn:active {

@@ -408,12 +408,23 @@ document.getElementById('btn-right').addEventListener('click', () => {
     changeDirection(DIRECTIONS.RIGHT);
 });
 
-// 添加触摸事件，防止触摸按钮时页面滚动
+// 添加触摸事件，防止触摸按钮时页面滚动，同时触发方向改变
 const controlButtons = document.querySelectorAll('.control-btn');
 controlButtons.forEach(btn => {
     btn.addEventListener('touchstart', (e) => {
         e.preventDefault(); // 防止触摸事件引起的页面滚动
-    });
+        
+        // 根据按钮ID触发相应的方向改变
+        if (btn.id === 'btn-up') {
+            changeDirection(DIRECTIONS.UP);
+        } else if (btn.id === 'btn-down') {
+            changeDirection(DIRECTIONS.DOWN);
+        } else if (btn.id === 'btn-left') {
+            changeDirection(DIRECTIONS.LEFT);
+        } else if (btn.id === 'btn-right') {
+            changeDirection(DIRECTIONS.RIGHT);
+        }
+    }, { passive: false });
 });
 
 // 添加难度选择事件监听

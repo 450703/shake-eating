@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>贪吃蛇游戏</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>贪吃蛇游戏</h1>
+        <div class="game-info">
+            <div class="score">分数: <span id="score">0</span></div>
+            <div class="difficulty-container">
+                <label for="difficulty">难度:</label>
+                <select id="difficulty">
+                    <option value="easy">简单</option>
+                    <option value="medium" selected>中等</option>
+                    <option value="hard">困难</option>
+                </select>
+            </div>
+            <button id="start-btn">开始游戏</button>
+        </div>
+        <canvas id="game-canvas" width="400" height="400"></canvas>
+        
+        <!-- 移动端方向控制按钮 -->
+        <div class="mobile-controls">
+            <div class="control-row">
+                <button class="control-btn" id="btn-up"><i class="fas fa-chevron-up"></i></button>
+            </div>
+            <div class="control-row">
+                <button class="control-btn" id="btn-left"><i class="fas fa-chevron-left"></i></button>
+                <button class="control-btn" id="btn-right"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="control-row">
+                <button class="control-btn" id="btn-down"><i class="fas fa-chevron-down"></i></button>
+            </div>
+        </div>
+        
+        <div class="game-instructions">
+            <p>使用键盘方向键 ↑ ↓ ← → 控制蛇的移动</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

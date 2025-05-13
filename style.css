@@ -1,0 +1,185 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #333;
+}
+
+.game-container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #4CAF50;
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.score {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.difficulty-container {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.difficulty-container label {
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+#difficulty {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: white;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+#difficulty:focus {
+    outline: none;
+    border-color: #4CAF50;
+}
+
+#start-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 5px 0;
+}
+
+#start-btn:hover {
+    background-color: #45a049;
+}
+
+#game-canvas {
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    max-width: 100%;
+}
+
+.game-instructions {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* 游戏结束提示 */
+.game-over {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    display: none;
+}
+
+/* 移动端方向控制按钮 */
+.mobile-controls {
+    margin: 20px auto 0;
+    width: 180px;
+    display: none; /* 默认隐藏，仅在移动设备上显示 */
+}
+
+.control-row {
+    display: flex;
+    justify-content: center;
+    margin: 5px 0;
+}
+
+.control-btn {
+    width: 50px;
+    height: 50px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    margin: 0 5px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    -webkit-tap-highlight-color: transparent; /* 移除移动端点击高亮 */
+}
+
+.control-btn:active {
+    background-color: #3e8e41;
+    transform: scale(0.95);
+}
+
+/* 响应式调整 */
+@media (max-width: 500px) {
+    .game-container {
+        padding: 10px;
+    }
+    
+    #game-canvas {
+        width: 300px;
+        height: 300px;
+    }
+
+    /* 调整游戏信息区域在移动设备上的显示 */
+    .game-info {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .difficulty-container {
+        margin: 10px 0;
+    }
+
+    /* 在移动设备上显示方向控制按钮 */
+    .mobile-controls {
+        display: block;
+    }
+    
+    /* 调整移动设备上的游戏说明 */
+    .game-instructions p {
+        display: none;
+    }
+    
+    .game-instructions::after {
+        content: "使用下方按钮控制蛇的移动方向";
+        font-size: 0.9rem;
+        color: #666;
+    }
+} 
